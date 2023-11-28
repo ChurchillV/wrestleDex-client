@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.card {
+  @apply bg-white rounded overflow-hidden shadow-md relative hover:shadow-lg transition ease-out duration-300;
+}
+
+.face-badge {
+  @apply bg-yellow-500 text-gray-200 text-xs rounded-full uppercase font-bold absolute p-2 top-0 ml-2 mt-2;
+}
+
+.heel-badge {
+  @apply bg-purple-500 text-gray-200 text-xs rounded-full uppercase font-bold absolute p-2 top-0 ml-2 mt-2;
+
+}
+
+.btn {
+  @apply rounded-full text-xs tracking-wider cursor-pointer font-bold uppercase py-2 px-3;
+}
