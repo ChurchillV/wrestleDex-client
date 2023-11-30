@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .card {
-  @apply bg-white rounded overflow-hidden shadow-md relative hover:shadow-lg transition ease-out duration-300;
+  @apply bg-gray-800 rounded overflow-hidden hover:shadow-gray-900 shadow-md relative hover:shadow-lg transition ease-out duration-300;
 }
 
 .face-badge {
