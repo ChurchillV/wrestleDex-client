@@ -12,10 +12,12 @@ function App() {
   return (
     <div className="App bg-black flex flex-row">
         <Sidebar />
-        <Routes>
-          <Route path='/' Component={ Home } />
-          <Route path='/add' Component={ AddStar } />
-        </Routes>
+        <div className="flex-1 mt-10">
+          <Routes>
+            <Route path='/' Component={ Home } />
+            <Route path='/add' Component={ AddStar } />
+          </Routes>
+        </div>
     </div>
   );
 }

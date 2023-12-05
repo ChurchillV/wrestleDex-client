@@ -119,14 +119,16 @@ const Sidebar = () => {
                         Welcome to the WrestleDex
                     </motion.p>
 
-                    <button className='flex items-center justify-center w-full py-2 my-2 font-bold  bg-gray-800 rounded-lg text-white' >
-                        <BsPlus className='text-2xl' />
+                    <Link to="/add">
+                      <button className='flex items-center justify-center w-full py-2 my-2 font-bold  bg-gray-800 rounded-lg text-white' >
+                          <BsPlus className='text-2xl' />
 
-                        <motion.p animate={controlText}>
-                        Contribute
-                        </motion.p>
+                          <motion.p animate={controlText}>
+                          Contribute
+                          </motion.p>
 
-                    </button>
+                      </button>
+                    </Link>
                 </div>
 
                 <div className='grow'>
