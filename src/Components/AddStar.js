@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // Form component imports
 import {
@@ -10,6 +10,13 @@ import {
 } from "@material-tailwind/react";
 
 const AddStar = () => {
+
+  const [gender, setGender] = useState("Male");
+
+  const onOptionChange = e => {
+    setGender(e.target.value)
+  }
+
   return (
     <div className='flex flex-col justify-center items-center mx-4 text-gray-200 mb-10'>
         <Card color="transparent" shadow={false}>
@@ -45,7 +52,7 @@ const AddStar = () => {
               Promotion
             </Typography>
              <select name="" id="" placeholder='Select a promotion' className='bg-transparent text-gray-100 p-2 border-2 rounded-md border-gray-50'>
-              <option value="" className='bg-black text-gray-200'>One</option>
+              <option value="" className='bg-black text-gray-200'>Select a Promotion</option>
               <option value="" className='bg-black text-gray-200'>Two</option>
               <option value="" className='bg-black text-gray-200'>Three</option>
               <option value="" className='bg-black text-gray-200'>Four</option>
@@ -56,19 +63,19 @@ const AddStar = () => {
               Finisher
             </Typography>
              <select name="" id="" className='bg-transparent text-gray-200 p-2 border-2 rounded-md border-gray-50'>
-              <option value="" className='bg-black text-gray-200'>One</option>
+              <option value="" className='bg-black text-gray-200'>Select a Finisher</option>
               <option value="" className='bg-black text-gray-200'>Two</option>
               <option value="" className='bg-black text-gray-200'>Three</option>
               <option value="" className='bg-black text-gray-200'>Four</option>
               <option value="" className='bg-black text-gray-200'>Five</option>
              </select>
             
-            <div className="flex flex-row gap-4 justify-around">
+            <div className="flex flex-row gap-3 justify-around">
               <Typography variant="h6" color="white" className="-mb-3">
                 Style
               </Typography>
               <select name="" id="" className='bg-transparent text-gray-200 p-2 border-2 rounded-md border-gray-50'>
-                <option value="" className='bg-black text-gray-200'>One</option>
+                <option value="" className='bg-black text-gray-200'>Select Style</option>
                 <option value="" className='bg-black text-gray-200'>Two</option>
                 <option value="" className='bg-black text-gray-200'>Three</option>
                 <option value="" className='bg-black text-gray-200'>Four</option>
@@ -79,7 +86,7 @@ const AddStar = () => {
                 Allegiance
               </Typography>
               <select name="" id="" className='bg-transparent text-gray-200 p-2 border-2 rounded-md border-gray-50'>
-                <option value="" className='bg-black text-gray-200'>One</option>
+                <option value="" className='bg-black text-gray-200'>Heel/Face</option>
                 <option value="" className='bg-black text-gray-200'>Two</option>
                 <option value="" className='bg-black text-gray-200'>Three</option>
                 <option value="" className='bg-black text-gray-200'>Four</option>
@@ -95,10 +102,10 @@ const AddStar = () => {
               <input
                   type="radio"
                   name="gender"
-                  value="Regular"
-                  id="regular"
-                  // checked={gender === "Regular"}
-                  // onChange={onOptionChange}
+                  value="Male"
+                  id="male"
+                  checked={gender === "Male"}
+                  onChange={onOptionChange}
                 />
                 <label htmlFor="regular" className='ml-2'>Male</label>
               </div>
@@ -107,10 +114,10 @@ const AddStar = () => {
                 <input
                   type="radio"
                   name="gender"
-                  value="Medium"
-                  id="medium"
-                  // checked={gender === "Medium"}
-                  // onChange={onOptionChange}
+                  value="Female"
+                  id="female"
+                  checked={gender === "Female"}
+                  onChange={onOptionChange}
                 />
                 <label htmlFor="medium" className='ml-2'>Female</label>
               </div>
