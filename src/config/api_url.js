@@ -1,3 +1,3 @@
-const getAllWrestlers = 'http://localhost:2999/wrestlers';
+const apiURL = 'http://localhost:2999';
 
-module.exports = { getAllWrestlers };
+module.exports = { apiURL };
