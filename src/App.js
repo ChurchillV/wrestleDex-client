@@ -3,9 +3,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // Component Imports
-import Home from './Components/Home';
-import AddStar from './Components/AddStar';
-import Sidebar from './Components/Sidebar';
+import Home from './Pages/Home';
+import AddStar from './Pages/AddStar';
+import Sidebar from './Pages/Sidebar';
 
 function App() {
   
