@@ -1,7 +1,8 @@
 import React, { useState, useEffect} from 'react'
 
-// WrestlerCard Component import
+// Component imports
 import WrestlerCard from '../Components/WrestlerCard';
+import ProfileEditForm from '../Components/ProfileEditForm';
 
 const Home = () => {
     const [data, setData] = useState([]);
@@ -32,7 +33,7 @@ const Home = () => {
 
   return (
     <div className='text-white flex mt-3 justify-center px-10'>
-      <div>
+      <div className='flex flex-col'>
         <div className='flex flex-row justify-between'>
           <span className="text-5xl font-bold mb-4">All Stars</span>
           <div className="">
@@ -46,7 +47,8 @@ const Home = () => {
           </div>
           <div></div>
         </div>
-          {loading ? (
+
+          {/* {loading ? (
             <p className='text-white'>Loading...</p>
           ) : (
             (data.length > 0) ? 
@@ -59,7 +61,8 @@ const Home = () => {
           <div className="text-3xl grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             No wrestlers found
           </div>
-          )}
+          )} */}
+          <ProfileEditForm/>
       </div>
     </div>
   )
