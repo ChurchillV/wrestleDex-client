@@ -25,11 +25,13 @@ const Home = () => {
         } catch (error) {
             console.error('Error fetching data:', error);
             setLoading(false);
+            console.log(data);
         }
         };
 
         fetchData();
     }, [searchQuery]);
+
 
   return (
     <div className='text-white flex mt-3 justify-center px-10'>
@@ -62,7 +64,7 @@ const Home = () => {
             No wrestlers found
           </div>
           )} */}
-          <ProfileEditForm/>
+          <ProfileEditForm wrestler={data[0]}/>
       </div>
     </div>
   )
