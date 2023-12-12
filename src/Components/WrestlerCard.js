@@ -6,7 +6,10 @@ const WrestlerCard = ({wrestler}) => {
         <img src={wrestler.wrestler_img} alt="#" class="w-full h-32 sm:h-48 object-contain bg-slate-600" />
         <div class="m-4">
             <span class="text-bold text-gray-200">{wrestler.wrestler_name}</span>
-            <span class="block text-gray-400 text-sm">{wrestler.promotion_name}</span>
+            <div className="flex flex-row justify-between">
+                <span class="block text-gray-400 text-sm">{wrestler.promotion_name}</span>
+                <button className="bg-blue-200 text-gray-600 rounded-md">Edit</button>
+            </div>
         </div>
         {
             wrestler.wrestler_allegiance === 'F' ?

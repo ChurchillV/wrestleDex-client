@@ -50,7 +50,7 @@ const Home = () => {
           <div></div>
         </div>
 
-          {/* {loading ? (
+          {loading ? (
             <p className='text-white'>Loading...</p>
           ) : (
             (data.length > 0) ? 
@@ -63,8 +63,8 @@ const Home = () => {
           <div className="text-3xl grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             No wrestlers found
           </div>
-          )} */}
-          <ProfileEditForm wrestler={data[0]}/>
+          )}
+          {/* <ProfileEditForm wrestler={data[0]}/> */}
       </div>
     </div>
   )
