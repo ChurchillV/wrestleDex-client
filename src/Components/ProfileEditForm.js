@@ -1,10 +1,19 @@
 import React, { useState,useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 // API URL import
 import { apiURL } from '../config/api_url';
 import { select } from '@material-tailwind/react';
 
 const ProfileEditForm = ({wrestler}) => {
+
+  const navigate = useNavigate();
+  const [wrestlerDetails, setWrestlerDetails] = useState(wrestler);
+
+  const handleInputChange = (e) => {
+    const {name, value} = e.target;
+    setWrestlerDetails({...wrestlerDetails, [name]: value});
+  }
     
     const [promotions, setPromotions] = useState([]);
     const [finishers, setFinishers] = useState([]);
@@ -47,6 +56,28 @@ const ProfileEditForm = ({wrestler}) => {
         fetchStyles();
     }, []);
 
+    const updateProfileData = async(e) => {
+      e.preventDefault();
+
+      try {
+        const response = await fetch(`${apiURL}/:${wrestler.wrestler_id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type' : 'application/json',
+          },
+          body: JSON.stringify(wrestlerDetails),
+        });
+
+        if(response.ok) {
+          console.log(`Profile updated successfully!`);
+          navigate("/");
+        } else {
+          console.log("Error updating wrestler profile:", response.statusText);
+        }
+      } catch(error) {
+        console.error("Error updating Wrestler details: ", error);
+      }
+    }
 
   return (
     <div className='border-2 border-solid w-full border-gray-300 rounded-md p-5 bg-slate-100 text-gray-700'>
@@ -59,7 +90,9 @@ const ProfileEditForm = ({wrestler}) => {
                 <input
                     type="text"
                     defaultValue={wrestler.wrestler_name}
-                    // value={wrestler.wrestler_name}
+                    name='wrestler_name'
+                    value={wrestlerDetails.wrestler_name}
+                    onChange={handleInputChange}
                     className='rounded-md bg-gray-300 w-10/12 text-gray-700 p-2 mt-2 block mb-6' />
             </label>
 
@@ -69,7 +102,9 @@ const ProfileEditForm = ({wrestler}) => {
                 <input
                     type="text"
                     defaultValue={wrestler.wrestler_img}
-                    // value={wrestler.wrestler_name}
+                    name='image_url'
+                    value={wrestlerDetails.image_url}
+                    onChange={handleInputChange}
                     className='rounded-md bg-gray-300 w-10/12 text-gray-700 p-2 mt-2 mb-6 block' />
             </label>
 
@@ -79,7 +114,9 @@ const ProfileEditForm = ({wrestler}) => {
                 <textarea
                     type="textarea"
                     defaultValue={wrestler.bio}
-                    // value={wrestler.wrestler_name}
+                    name='bio'
+                    value={wrestlerDetails.bio}
+                    onChange={handleInputChange}
                     className='rounded-md bg-gray-300 w-10/12 h-20 text-gray-700 p-2 mt-2 mb-6 block' />
             </label>
 
@@ -87,17 +124,20 @@ const ProfileEditForm = ({wrestler}) => {
         {/* Promotion field */}
             <label className='mt-10'>
                 Promotion:
-               <select name="promotion" defaultValue={wrestler.promotion_name} id="" className='block w-10/12 rounded-md bg-gray-300 text-gray-700 p-2 mt-2 mb-6'>
-                {promotions.map((promotion) => (
-                    (promotion.promotion_name === wrestler.promotion_name) ?
-                    <option selected key={promotion.promotion_id} value={promotion.promotion_id} name='promotion_id' className='bg-black text-gray-200'>
-                    {promotion.promotion}
-                    </option> 
-                    :
-                    <option key={promotion.promotion_id} value={promotion.promotion_id} name='promotion_id' className='bg-black text-gray-200'>
-                    {promotion.promotion}
-                    </option>
-                ))}
+               <select 
+                  name="promotion_id"
+                  value={wrestlerDetails.promotion_id}
+                  defaultValue={wrestler.promotion_name} id="" className='block w-10/12 rounded-md bg-gray-300 text-gray-700 p-2 mt-2 mb-6'>
+                  {promotions.map((promotion) => (
+                      (promotion.promotion_name === wrestler.promotion_name) ?
+                      <option selected key={promotion.promotion_id} value={promotion.promotion_id} name='promotion_id' className='bg-black text-gray-200'>
+                      {promotion.promotion}
+                      </option> 
+                      :
+                      <option key={promotion.promotion_id} value={promotion.promotion_id} name='promotion_id' className='bg-black text-gray-200'>
+                      {promotion.promotion}
+                      </option>
+                  ))}
                </select>
             </label>
 
@@ -105,7 +145,10 @@ const ProfileEditForm = ({wrestler}) => {
         {/* Finisher field */}
             <label className='mt-10'>
                 Finisher:
-               <select name="Finisher" id="" className='block w-10/12 rounded-md bg-gray-300 text-gray-700 p-2 mt-2 mb-6'>
+               <select 
+                  name="finisher_id"
+                  value={wrestlerDetails.finisher_id} 
+                  id="" className='block w-10/12 rounded-md bg-gray-300 text-gray-700 p-2 mt-2 mb-6'>
                 {finishers.map((finisher) => (
                     (finisher.finisher_name === wrestler.finisher_name) ?
                     <option selected key={finisher.finisher_id} value={finisher.finisher_id} className='bg-black text-gray-200'>
@@ -123,7 +166,10 @@ const ProfileEditForm = ({wrestler}) => {
             {/* Style field */}
                 <label className=''>
                     Style:
-                <select name="Style" id="" className='block w-10/12 rounded-md bg-gray-300 text-gray-700 p-2 mt-2 mb-6'>
+                <select 
+                  name="style_id" 
+                  value={wrestlerDetails.style_id}  
+                  id="" className='block w-10/12 rounded-md bg-gray-300 text-gray-700 p-2 mt-2 mb-6'>
                     {styles.map((style) => (
                     (style.style_id === wrestler.style_id) ?
                     <option selected key={style.style_id} value={style.style_id} className='bg-black text-gray-200'>
@@ -141,7 +187,10 @@ const ProfileEditForm = ({wrestler}) => {
                 <label className=''>
                     Allegiance:
                 {(wrestler.allegiance_id === "F") ?
-                    <select name="Allegiance" id="" className='block w-10/12 rounded-md bg-gray-300 text-gray-700 p-2 mt-2 mb-6'>
+                    <select 
+                      name="allegiance_id"
+                      value={wrestlerDetails.allegiance_id} 
+                      id="" className='block w-10/12 rounded-md bg-gray-300 text-gray-700 p-2 mt-2 mb-6'>
                     <option value="F" className='' selected>Face</option>
                     <option value="H" className=''>Heel</option>
                     </select>
@@ -156,7 +205,10 @@ const ProfileEditForm = ({wrestler}) => {
 
         <div className='text-center mr-5 mt-5'>
         {/* Submit button */}
-            <button className='p-3 rounded-md w-full text-gray-200 bg-gray-800 text-center'>
+            <button 
+              type='submit'
+              className='p-3 rounded-md w-full text-gray-200 bg-gray-800 text-center'
+              onClick={updateProfileData()}>
                 Update Profile
             </button>
 
