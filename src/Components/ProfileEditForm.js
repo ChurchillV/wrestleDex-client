@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 // API URL import
 import { apiURL } from '../config/api_url';
-import { select } from '@material-tailwind/react';
 
-const ProfileEditForm = ({wrestler}) => {
+const ProfileEditForm = ({wrestler, displayForm, exitForm}) => {
 
   const navigate = useNavigate();
   const [wrestlerDetails, setWrestlerDetails] = useState(wrestler);
@@ -79,8 +78,20 @@ const ProfileEditForm = ({wrestler}) => {
       }
     }
 
+    const handleCloseButtonClick = () => {
+      exitForm();
+    }
+
   return (
     <div className='border-2 border-solid w-full border-gray-300 rounded-md p-5 bg-slate-100 text-gray-700'>
+      <div 
+        className="flex flex-row justify-end mr-3"
+        onClick={handleCloseButtonClick}>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+
+      </div>
         <h2 className='text-center'>Edit {wrestler.wrestler_name}'s Profile</h2>
         <form className='mt-10 pl-10'>
 
@@ -208,7 +219,7 @@ const ProfileEditForm = ({wrestler}) => {
             <button 
               type='submit'
               className='p-3 rounded-md w-full text-gray-200 bg-gray-800 text-center'
-              onClick={updateProfileData()}>
+              onClick={updateProfileData}>
                 Update Profile
             </button>
 

@@ -8,6 +8,13 @@ const Home = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+    const [wrestlerDetails, setWrestlerDetails] = useState(null);
+    const [showEditForm, setShowEditForm] = useState('false');
+
+    const displayEditForm = (wrestlerDetails) => {
+      setWrestlerDetails(wrestlerDetails);
+      setShowEditForm(true);
+    }
 
     useEffect(() => {
         // Fetch data from the API
@@ -56,7 +63,7 @@ const Home = () => {
             (data.length > 0) ? 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               {data.map(item => (
-                <WrestlerCard wrestler={item} />
+                <WrestlerCard wrestler={item} handleEditClick={displayEditForm} />
               ))}
             </div>
           :
@@ -64,7 +71,10 @@ const Home = () => {
             No wrestlers found
           </div>
           )}
-          {/* <ProfileEditForm wrestler={data[0]}/> */}
+         {/* { showEditForm && 
+          (<ProfileEditForm 
+              wrestler={data}
+            />)} */}
       </div>
     </div>
   )

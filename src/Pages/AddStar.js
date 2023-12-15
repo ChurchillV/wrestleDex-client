@@ -20,20 +20,9 @@ const AddStar = () => {
   const [finishers, setFinishers] = useState([]);
   const [promotions, setPromotions] = useState([]);
   const [wrestlerName, setWrestlerName] = useState();
-  const [allegiance, setAllegiance] = useState();
-  const [bio, setBio] = useState();
-  const [img, setImg] = useState();
   const [wrestlerCount, setWrestlerCount] = useState();
   const [wrestlerDetails, setWrestlerDetails] = useState({
     "id" : wrestlerCount,
-    "name" : wrestlerName,
-    "promotion_id" : "",
-    "gender" : gender,
-    "allegiance" : allegiance,
-    "style" : "",
-    "finisher_id" : "",
-    "bio" : bio,
-    "img" : img
   })
 
   const onOptionChange = (e) => {
@@ -155,7 +144,7 @@ useEffect(() => {
               </Typography>
               <Input
                 size="lg"
-                placeholder="A link to the stars photo (Landscape)"
+                placeholder="A link to the star's photo (Landscape)"
                 name='img'
                 value={wrestlerDetails.img}
                 className=" !border-t-gray-200 focus:!border-t-gray-900 px-2"
@@ -170,13 +159,13 @@ useEffect(() => {
                 Bio
               </Typography>
              <Textarea
-              variant='outlined'
-              size='lg'
-              placeholder='Raised by wolves...'
-              className='px-2'
-              name='bio'
-              value={wrestlerDetails.bio}
-              onChange={handleInputChange}
+                variant='outlined'
+                size='lg'
+                placeholder='Raised by wolves...'
+                className='px-2'
+                name='bio'
+                value={wrestlerDetails.bio}
+                onChange={handleInputChange}
              />
 
              {/* Promotion section */}
@@ -262,7 +251,7 @@ useEffect(() => {
                   value="M"
                   id="male"
                   checked={wrestlerDetails.gender === "Male"}
-                  onChange={onOptionChange}
+                  onChange={handleInputChange}
                 />
                 <label htmlFor="regular" className='ml-2'>Male</label>
               </div>
@@ -274,7 +263,7 @@ useEffect(() => {
                   value="F"
                   id="female"
                   checked={wrestlerDetails.gender === "Female"}
-                  onChange={onOptionChange}
+                  onChange={handleInputChange}
                 />
                 <label htmlFor="medium" className='ml-2'>Female</label>
               </div>
