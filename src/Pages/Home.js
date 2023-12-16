@@ -9,11 +9,20 @@ const Home = () => {
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const [wrestlerDetails, setWrestlerDetails] = useState(null);
-    const [showEditForm, setShowEditForm] = useState('false');
+    const [showEditForm, setShowEditForm] = useState(false);
+
+    const wrestlerSectionStyle = showEditForm 
+    ? "grid md:grid-cols-2 lg:grid-cols-4 gap-4 opacity-25"
+    : "grid md:grid-cols-2 lg:grid-cols-4 gap-4"
 
     const displayEditForm = (wrestlerDetails) => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       setWrestlerDetails(wrestlerDetails);
       setShowEditForm(true);
+    }
+
+    const hideEditForm = () => {
+      setShowEditForm(false);
     }
 
     useEffect(() => {
@@ -41,7 +50,7 @@ const Home = () => {
 
 
   return (
-    <div className='text-white flex mt-3 justify-center px-10'>
+    <div className='text-white flex mt-3 justify-center px-10 relative'>
       <div className='flex flex-col'>
         <div className='flex flex-row justify-between'>
           <span className="text-5xl font-bold mb-4">All Stars</span>
@@ -61,9 +70,11 @@ const Home = () => {
             <p className='text-white'>Loading...</p>
           ) : (
             (data.length > 0) ? 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className={wrestlerSectionStyle}>
               {data.map(item => (
-                <WrestlerCard wrestler={item} handleEditClick={displayEditForm} />
+                <WrestlerCard 
+                  wrestler={item} 
+                  onEditButtonClick={() => displayEditForm(item)}/>
               ))}
             </div>
           :
@@ -71,10 +82,12 @@ const Home = () => {
             No wrestlers found
           </div>
           )}
-         {/* { showEditForm && 
-          (<ProfileEditForm 
-              wrestler={data}
-            />)} */}
+          {showEditForm &&
+            <ProfileEditForm 
+                wrestler={wrestlerDetails}
+                exitForm={hideEditForm}
+              />
+          }
       </div>
     </div>
   )
