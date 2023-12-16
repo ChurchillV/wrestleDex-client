@@ -1,20 +1,34 @@
 import React, { useState, useEffect} from 'react'
 
+// Import API url
+import { apiURL } from '../config/api_url';
+
 // Component imports
 import WrestlerCard from '../Components/WrestlerCard';
 import ProfileEditForm from '../Components/ProfileEditForm';
 
 const Home = () => {
+    // API data
     const [data, setData] = useState([]);
+
+    // Loading status
     const [loading, setLoading] = useState(true);
+
+    // Search query data
     const [searchQuery, setSearchQuery] = useState('');
+
+    // Wrestler details for edit form
     const [wrestlerDetails, setWrestlerDetails] = useState(null);
+
+    // Display edit form (or not)
     const [showEditForm, setShowEditForm] = useState(false);
 
+    // Styling logic for edit form
     const wrestlerSectionStyle = showEditForm 
-    ? "grid md:grid-cols-2 lg:grid-cols-4 gap-4 opacity-25"
-    : "grid md:grid-cols-2 lg:grid-cols-4 gap-4"
+    ? "grid md:grid-cols-2 lg:grid-cols-4 gap-4 opacity-25 transition ease-out duration-300"
+    : "grid md:grid-cols-2 lg:grid-cols-4 gap-4 transition ease-out duration-300"
 
+    // Scroll to top on edit button click
     const displayEditForm = (wrestlerDetails) => {
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       setWrestlerDetails(wrestlerDetails);
@@ -30,8 +44,8 @@ const Home = () => {
         const fetchData = async () => {
         try {
           const apiEndpoint = searchQuery
-          ? `http://localhost:2999/wrestlers/search?name=${encodeURIComponent(searchQuery)}`
-          : 'http://localhost:2999/wrestlers/';
+          ? `${apiURL}/wrestlers/search?name=${encodeURIComponent(searchQuery)}`
+          : `${apiURL}/wrestlers/`;
 
             const response = await fetch(apiEndpoint); 
             const result = await response.json();
@@ -47,6 +61,34 @@ const Home = () => {
 
         fetchData();
     }, [searchQuery]);
+
+    const editFormInputChange = (e) => {
+      const {name, value} = e.target;
+      setWrestlerDetails({...wrestlerDetails, [name]: value});
+    }
+
+    // Update wrestler record in the database
+    const updateProfileData = async(e) => {
+      e.preventDefault();
+
+      try {
+        const response = await fetch(`${apiURL}/:${wrestlerDetails.wrestler_id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type' : 'application/json',
+          },
+          body: JSON.stringify(wrestlerDetails),
+        });
+
+        if(response.ok) {
+          console.log(`Profile updated successfully!`);
+        } else {
+          console.log("Error updating wrestler profile:", response.statusText);
+        }
+      } catch(error) {
+        console.error("Error updating Wrestler details: ", error);
+      }
+    }
 
 
   return (
@@ -86,6 +128,8 @@ const Home = () => {
             <ProfileEditForm 
                 wrestler={wrestlerDetails}
                 exitForm={hideEditForm}
+                submitUpdate={updateProfileData}
+                handleChange={editFormInputChange}
               />
           }
       </div>

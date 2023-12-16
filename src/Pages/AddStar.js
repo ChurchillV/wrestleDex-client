@@ -253,7 +253,7 @@ useEffect(() => {
                   checked={wrestlerDetails.gender === "Male"}
                   onChange={handleInputChange}
                 />
-                <label htmlFor="regular" className='ml-2'>Male</label>
+                <label htmlFor="gender" className='ml-2'>Male</label>
               </div>
               
               <div>
@@ -265,7 +265,7 @@ useEffect(() => {
                   checked={wrestlerDetails.gender === "Female"}
                   onChange={handleInputChange}
                 />
-                <label htmlFor="medium" className='ml-2'>Female</label>
+                <label htmlFor="gender" className='ml-2'>Female</label>
               </div>
             </div>
 
