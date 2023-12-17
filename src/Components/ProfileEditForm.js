@@ -54,29 +54,6 @@ const ProfileEditForm = ({wrestler, exitForm, submitUpdate, handleChange}) => {
         fetchStyles();
     }, []);
 
-    const updateProfileData = async(e) => {
-      e.preventDefault();
-
-      try {
-        const response = await fetch(`${apiURL}/:${wrestler.wrestler_id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type' : 'application/json',
-          },
-          body: JSON.stringify(wrestlerDetails),
-        });
-
-        if(response.ok) {
-          console.log(`Profile updated successfully!`);
-          navigate("/");
-        } else {
-          console.log("Error updating wrestler profile:", response.statusText);
-        }
-      } catch(error) {
-        console.error("Error updating Wrestler details: ", error);
-      }
-    }
-
     const handleCloseButtonClick = () => {
       exitForm();
     }
