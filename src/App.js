@@ -10,13 +10,16 @@ import Sidebar from './Pages/Sidebar';
 function App() {
   
   return (
-    <div className="App bg-black flex flex-row">
+    <div className="App bg-black flex flex-row h-screen">
         <Sidebar />
-        <div className="flex-1 mt-10">
+        <div className="flex-1 mt-10 overflow-auto">
           <Routes>
             <Route path='/' Component={ Home } />
             <Route path='/add' Component={ AddStar } />
           </Routes>
+        </div>
+        <div>
+
         </div>
     </div>
   );
