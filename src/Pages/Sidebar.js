@@ -120,7 +120,7 @@ const Sidebar = () => {
                     </motion.p>
 
                     <Link to="/add">
-                      <button className='flex items-center justify-center w-full py-2 my-2 font-bold  bg-gray-800 rounded-lg text-white' >
+                      <button className='flex items-center justify-center w-full py-2 my-2 font-bold rounded-md bg-blue-200 text-gray-600 hover:bg-gray-600 hover:text-blue-200 transition ease-out duration-300' >
                           <BsPlus className='text-2xl' />
 
                           <motion.p animate={controlText}>

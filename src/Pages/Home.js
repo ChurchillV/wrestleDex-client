@@ -62,35 +62,6 @@ const Home = () => {
         fetchData();
     }, [searchQuery]);
 
-    const editFormInputChange = (e) => {
-      const {name, value} = e.target;
-      setWrestlerDetails({...wrestlerDetails, [name]: value});
-    }
-
-    // Update wrestler record in the database
-    const updateProfileData = async(e) => {
-      e.preventDefault();
-
-      try {
-        const response = await fetch(`${apiURL}/:${wrestlerDetails.wrestler_id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type' : 'application/json',
-          },
-          body: JSON.stringify(wrestlerDetails),
-        });
-
-        if(response.ok) {
-          console.log(`Profile updated successfully!`);
-        } else {
-          console.log("Error updating wrestler profile:", response.statusText);
-        }
-      } catch(error) {
-        console.error("Error updating Wrestler details: ", error);
-      }
-    }
-
-
   return (
     <div className='text-white flex mt-3 justify-center px-10 relative'>
       <div className='flex flex-col'>
@@ -115,6 +86,7 @@ const Home = () => {
             <div className={wrestlerSectionStyle}>
               {data.map(item => (
                 <WrestlerCard 
+                  key={item.wrestler_id}
                   wrestler={item} 
                   onEditButtonClick={() => displayEditForm(item)}/>
               ))}
@@ -128,8 +100,6 @@ const Home = () => {
             <ProfileEditForm 
                 wrestler={wrestlerDetails}
                 exitForm={hideEditForm}
-                submitUpdate={updateProfileData}
-                handleChange={editFormInputChange}
               />
           }
       </div>

@@ -1,16 +1,14 @@
 import React, { useState,useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
 
 // API URL import
 import { apiURL } from '../config/api_url';
 
-const ProfileEditForm = ({wrestler, exitForm, submitUpdate, handleChange}) => {
+const ProfileEditForm = ({ wrestler, exitForm }) => {
 
-  const navigate = useNavigate();
   const [wrestlerDetails, setWrestlerDetails] = useState(wrestler);
 
   const handleInputChange = (e) => {
-    handleChange(e);
+    setWrestlerDetails({ [e.target.name] : e.target.value });
   }
     
     const [promotions, setPromotions] = useState([]);
@@ -58,8 +56,28 @@ const ProfileEditForm = ({wrestler, exitForm, submitUpdate, handleChange}) => {
       exitForm();
     }
 
-    const updateWrestlerProfile = (e) => {
-      submitUpdate(e);
+    const updateWrestlerProfile = async() => {
+        // e.preventDefault();
+
+        try {
+          const response = await fetch(`${apiURL}/wrestler/${wrestler.wrestler_id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type' : 'application/json',
+            },
+            body: JSON.stringify(wrestlerDetails),
+          });
+  
+          if(response.ok) {
+            console.log(`Profile updated successfully!`);
+            exitForm();
+          } else {
+            console.log("Error updating wrestler profile:", response.statusText);
+          }
+        } catch(error) {
+          console.error("Error updating Wrestler details: ", error);
+        }
+
     }
 
   return (
@@ -218,7 +236,7 @@ const ProfileEditForm = ({wrestler, exitForm, submitUpdate, handleChange}) => {
             <button 
               type='submit'
               className='p-3 rounded-md w-1/2 text-gray-200 bg-gray-800 text-center'
-              onClick={(e) => updateWrestlerProfile}>
+              onClick={updateWrestlerProfile}>
                 Update Profile
             </button>
         </div>
