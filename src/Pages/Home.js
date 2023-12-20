@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 
 // Import API url
 import { apiURL } from '../config/api_url';
@@ -30,9 +30,9 @@ const Home = () => {
 
     // Scroll to top on edit button click
     const displayEditForm = (wrestlerDetails) => {
-      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       setWrestlerDetails(wrestlerDetails);
       setShowEditForm(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     const hideEditForm = () => {
@@ -67,7 +67,7 @@ const Home = () => {
       <div className='flex flex-col'>
         <div className='flex flex-row justify-between'>
           <span className="text-5xl font-bold mb-4">All Stars</span>
-          <div className="">
+          <div>
             <input
             className='mb-10 text-gray-700 rounded-lg px-4 py-3 bg-transparent border border-gray-500 border-solid'
               type="text"
