@@ -57,7 +57,6 @@ const ProfileEditForm = ({ wrestler, exitForm }) => {
     }
 
     const updateWrestlerProfile = async() => {
-        // e.preventDefault();
 
         try {
           const response = await fetch(`${apiURL}/wrestler/${wrestler.wrestler_id}`, {
@@ -185,26 +184,26 @@ const ProfileEditForm = ({ wrestler, exitForm }) => {
             </label>
 
 
-            {/* Style field */}
-                <label className='mt-4'>
-                    Style:
-                <select 
-                  name="style_id" 
-                  value={wrestlerDetails.style_id}  
-                  onChange={handleInputChange}
-                  className='block w-10/12 rounded-md bg-gray-300 text-gray-700 p-2 mt-2 mb-2'>
-                    {styles.map((style) => (
-                    (style.style_id === wrestler.style_id) ?
-                    <option selected key={style.style_id} value={style.style_id} className='bg-black text-gray-200'>
-                    {style.style_name}
-                    </option>
-                    :
-                    <option key={style.style_id} value={style.style_id} className='bg-black text-gray-200'>
-                    {style.style_name}
-                    </option>
-                ))}
-                </select>
-                </label>
+      {/* Style field */}
+          <label className='mt-4'>
+              Style:
+          <select 
+            name="style_id" 
+            value={wrestlerDetails.style_id}  
+            onChange={handleInputChange}
+            className='block w-10/12 rounded-md bg-gray-300 text-gray-700 p-2 mt-2 mb-2'>
+              {styles.map((style) => (
+              (style.style_id === wrestler.style_id) ?
+              <option selected key={style.style_id} value={style.style_id} className='bg-black text-gray-200'>
+              {style.style_name}
+              </option>
+              :
+              <option key={style.style_id} value={style.style_id} className='bg-black text-gray-200'>
+              {style.style_name}
+              </option>
+          ))}
+          </select>
+          </label>
 
             {/* Allegiance field */}
                 <label className='mt-4'>
