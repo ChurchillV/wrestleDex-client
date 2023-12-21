@@ -8,7 +8,7 @@ const ProfileEditForm = ({ wrestler, exitForm }) => {
   const [wrestlerDetails, setWrestlerDetails] = useState(wrestler);
 
   const handleInputChange = (e) => {
-    setWrestlerDetails({ [e.target.name] : e.target.value });
+    setWrestlerDetails({[e.target.name] : e.target.value });
   }
     
     const [promotions, setPromotions] = useState([]);
@@ -209,14 +209,14 @@ const ProfileEditForm = ({ wrestler, exitForm }) => {
             {/* Allegiance field */}
                 <label className='mt-4'>
                     Allegiance:
-                {(wrestler.allegiance_id === "F") ?
+                {(wrestler.allegiance_id == "F") ?
                     <select 
                       name="allegiance_id"
                       value={wrestlerDetails.allegiance_id} 
                       onChange={handleInputChange} 
                       className='block w-10/12 rounded-md bg-gray-300 text-gray-700 p-2 mt-3 mb-2'>
-                    <option value="F" className='' selected>Face</option>
-                    <option value="H" className=''>Heel</option>
+                    <option value="F" selected>Face</option>
+                    <option value="H">Heel</option>
                     </select>
                     :
                     <select
@@ -224,8 +224,8 @@ const ProfileEditForm = ({ wrestler, exitForm }) => {
                       value={wrestlerDetails.allegiance_id} 
                       onChange={handleInputChange} 
                       className='block w-10/12 rounded-md bg-gray-300 text-gray-700 p-2 mt-3 mb-2'>
-                    <option value="F" className='' selected>Heel</option>
-                    <option value="H" className=''>Face</option>
+                    <option value="H"  selected>Heel</option>
+                    <option value="F">Face</option>
                     </select>
                 }
                 </label>

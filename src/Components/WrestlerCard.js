@@ -23,7 +23,6 @@ const WrestlerCard = ({wrestler, onEditButtonClick}) => {
                     </button>
                 </span>
             </div>
-            <div className="flex flex-row justify-between top-0">
                 {
                     wrestler.wrestler_allegiance === 'F' ?
                         <div class="face-badge">
@@ -50,7 +49,6 @@ const WrestlerCard = ({wrestler, onEditButtonClick}) => {
                         </svg>
                     </button>
                 </div>
-            </div>
                     </div>
     )
 }
