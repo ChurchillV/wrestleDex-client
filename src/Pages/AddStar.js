@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // API URL import
 import { apiURL } from '../config/api_url';
@@ -98,7 +100,10 @@ useEffect(() => {
 
       if(response.ok) {
         console.log(`${wrestlerName} added successfully!`);
-        navigate("/")
+        toast.success("Profile added successfully", {
+          position : toast.POSITION.TOP_CENTER,
+        })
+        navigate("/");
       } else {
         console.error("Error adding wrestler:", response.statusText);
       }

@@ -1,4 +1,7 @@
 import React, { useState,useEffect } from 'react'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 // API URL import
 import { apiURL } from '../config/api_url';
@@ -6,14 +9,22 @@ import { apiURL } from '../config/api_url';
 const ProfileEditForm = ({ wrestler, exitForm }) => {
 
   const [wrestlerDetails, setWrestlerDetails] = useState(wrestler);
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setWrestlerDetails({[e.target.name] : e.target.value });
   }
     
-    const [promotions, setPromotions] = useState([]);
-    const [finishers, setFinishers] = useState([]);
-    const [styles, setStyles] = useState([]);
+  const [promotions, setPromotions] = useState([]);
+  const [finishers, setFinishers] = useState([]);
+  const [styles, setStyles] = useState([]);
+
+  const displaySuccessMessage = () => {
+      toast.success(`${wrestler.wrestler_name}'s profile updated successfully`, {
+        position : toast.POSITION.TOP_CENTER,
+      })
+  }
+
 
     useEffect(() => {
     
@@ -56,26 +67,29 @@ const ProfileEditForm = ({ wrestler, exitForm }) => {
       exitForm();
     }
 
-    const updateWrestlerProfile = async() => {
+    const updateWrestlerProfile = async(e) => {
+      e.preventDefault();
 
-        try {
-          const response = await fetch(`${apiURL}/wrestler/${wrestler.wrestler_id}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type' : 'application/json',
-            },
-            body: JSON.stringify(wrestlerDetails),
-          });
-  
-          if(response.ok) {
-            console.log(`Profile updated successfully!`);
-            exitForm();
-          } else {
-            console.log("Error updating wrestler profile:", response.statusText);
-          }
-        } catch(error) {
-          console.error("Error updating Wrestler details: ", error);
+      try {
+        const response = await fetch(`${apiURL}/wrestler/${wrestler.wrestler_id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type' : 'application/json',
+          },
+          body: JSON.stringify(wrestlerDetails),
+        });
+
+        if(response.ok) {
+          console.log(`Profile updated successfully!`);
+          displaySuccessMessage();
+          window.location.reload();
+          exitForm();
+        } else {
+          console.log("Error updating wrestler profile:", response.statusText);
         }
+      } catch(error) {
+        console.error("Error updating Wrestler details: ", error);
+      }
 
     }
 
@@ -134,7 +148,7 @@ const ProfileEditForm = ({ wrestler, exitForm }) => {
         {/* Promotion field */}
             <label className='mt-6'>
                 Promotion:
-               <select 
+              <select 
                   name="promotion_id"
                   value={wrestlerDetails.promotion_id}
                   defaultValue={wrestler.promotion_name} 
@@ -158,14 +172,14 @@ const ProfileEditForm = ({ wrestler, exitForm }) => {
                       {promotion.promotion}
                       </option>
                   ))}
-               </select>
+              </select>
             </label>
 
 
         {/* Finisher field */}
             <label className='mt-6'>
                 Finisher:
-               <select 
+              <select 
                   name="finisher_id"
                   value={wrestlerDetails.finisher_id} 
                   onChange={handleInputChange} 
@@ -180,7 +194,7 @@ const ProfileEditForm = ({ wrestler, exitForm }) => {
                     {finisher.finisher_name}
                     </option>
                 ))}
-               </select>
+              </select>
             </label>
 
 
@@ -234,7 +248,7 @@ const ProfileEditForm = ({ wrestler, exitForm }) => {
         {/* Submit button */}
             <button 
               type='submit'
-              className='p-3 rounded-md w-1/2 text-gray-200 bg-gray-800 text-center'
+              className='p-3 rounded-md w-1/2 text-gray-200 bg-gray-800 text-center hover:bg-gray-600 hover:text-blue-200 transition ease-out duration-300'
               onClick={updateWrestlerProfile}>
                 Update Profile
             </button>

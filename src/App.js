@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 // Component Imports
 import Home from './Pages/Home';
@@ -11,6 +12,7 @@ function App() {
   
   return (
     <div className="App bg-black flex flex-row h-screen">
+        <ToastContainer position='top-center' />
         <Sidebar />
         <div className="flex-1 mt-10 overflow-auto">
           <Routes>
