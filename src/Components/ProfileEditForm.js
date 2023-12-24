@@ -1,15 +1,13 @@
 import React, { useState,useEffect } from 'react'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
 
 // API URL import
 import { apiURL } from '../config/api_url';
 
-const ProfileEditForm = ({ wrestler, exitForm }) => {
+const ProfileEditForm = ({ wrestler, exitForm, updateData }) => {
 
   const [wrestlerDetails, setWrestlerDetails] = useState(wrestler);
-  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setWrestlerDetails({[e.target.name] : e.target.value });
@@ -26,29 +24,29 @@ const ProfileEditForm = ({ wrestler, exitForm }) => {
   }
 
 
-    useEffect(() => {
-    
-        const fetchPromotions = async() => {
-            try {
-              const response = await fetch(`${apiURL}/promotions`);
-              const promotionsData  = await response.json();
-              setPromotions(promotionsData);
-            } catch(error) {
-              console.error("Error fetching Promotions data:", error);
-            }
-          };
-    
-          const fetchFinishers = async() => {
-            try {
-              const response = await fetch(`${apiURL}/finishers`);
-              const finishersData  = await response.json();
-              setFinishers(finishersData);
-            } catch(error) {
-              console.error("Error fetching finishers data:", error);
-            }
-          }; 
-    
-            const fetchStyles = async() => {
+  useEffect(() => {
+  
+      const fetchPromotions = async() => {
+          try {
+            const response = await fetch(`${apiURL}/promotions`);
+            const promotionsData  = await response.json();
+            setPromotions(promotionsData);
+          } catch(error) {
+            console.error("Error fetching Promotions data:", error);
+          }
+        };
+  
+      const fetchFinishers = async() => {
+        try {
+          const response = await fetch(`${apiURL}/finishers`);
+          const finishersData  = await response.json();
+          setFinishers(finishersData);
+        } catch(error) {
+          console.error("Error fetching finishers data:", error);
+        }
+      }; 
+  
+      const fetchStyles = async() => {
         try {
           const response = await fetch(`${apiURL}/styles`);
           const stylesData  = await response.json();
@@ -57,41 +55,42 @@ const ProfileEditForm = ({ wrestler, exitForm }) => {
           console.error("Error fetching styles data:", error);
         }
       }; 
-    
-        fetchPromotions();
-        fetchFinishers();
-        fetchStyles();
-    }, []);
+  
+      fetchPromotions();
+      fetchFinishers();
+      fetchStyles();
+  }, []);
 
-    const handleCloseButtonClick = () => {
-      exitForm();
-    }
+  const handleCloseButtonClick = () => {
+    exitForm();
+  }
 
-    const updateWrestlerProfile = async(e) => {
-      e.preventDefault();
+  const updateWrestlerProfile = async(e) => {
+    e.preventDefault();
 
-      try {
-        const response = await fetch(`${apiURL}/wrestler/${wrestler.wrestler_id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type' : 'application/json',
-          },
-          body: JSON.stringify(wrestlerDetails),
-        });
+    try {
+      const response = await fetch(`${apiURL}/wrestler/${wrestler.wrestler_id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type' : 'application/json',
+        },
+        body: JSON.stringify(wrestlerDetails),
+      });
 
-        if(response.ok) {
-          console.log(`Profile updated successfully!`);
-          displaySuccessMessage();
-          window.location.reload();
-          exitForm();
-        } else {
-          console.log("Error updating wrestler profile:", response.statusText);
-        }
-      } catch(error) {
-        console.error("Error updating Wrestler details: ", error);
+      if(response.ok) {
+        console.log(`Profile updated successfully!`);
+        displaySuccessMessage();
+        exitForm();
+        updateData();
+        // window.location.reload();
+      } else {
+        console.log("Error updating wrestler profile:", response.statusText);
       }
-
+    } catch(error) {
+      console.error("Error updating Wrestler details: ", error);
     }
+
+  }
 
   return (
     <div 

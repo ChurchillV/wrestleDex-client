@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 // Import API url
 import { apiURL } from '../config/api_url';
@@ -35,8 +36,21 @@ const Home = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // Hide Edit form display
     const hideEditForm = () => {
       setShowEditForm(false);
+    }
+
+    const updateWrestlerData = async() => {
+      try {
+        const response = await fetch(`${apiURL}/wrestlers`);
+        const result = await response.json();
+        setData(result);
+      } catch(error) {
+        toast.error('Error updating data', {
+          position: toast.POSITION.TOP_CENTER,
+        })
+      }
     }
 
     useEffect(() => {
@@ -100,6 +114,7 @@ const Home = () => {
             <ProfileEditForm 
                 wrestler={wrestlerDetails}
                 exitForm={hideEditForm}
+                updateData={updateWrestlerData}
               />
           }
       </div>
