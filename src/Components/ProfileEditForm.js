@@ -82,12 +82,15 @@ const ProfileEditForm = ({ wrestler, exitForm, updateData }) => {
         displaySuccessMessage();
         exitForm();
         updateData();
-        // window.location.reload();
       } else {
-        console.log("Error updating wrestler profile:", response.statusText);
+        toast.error('Couldn\'t update profile', {
+          position : toast.POSITION.TOP_CENTER,
+        });
       }
     } catch(error) {
-      console.error("Error updating Wrestler details: ", error);
+      toast.error(`Error updating profile: ${error}`, {
+        position : toast.POSITION.TOP_CENTER,
+      });
     }
 
   }
