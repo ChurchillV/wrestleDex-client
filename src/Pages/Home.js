@@ -53,6 +53,29 @@ const Home = () => {
       }
     }
 
+    const deleteWrestlerProfile = async(wrestlerId) => {
+      try {
+        const response = await fetch(`${apiURL}/wrestlers/${wrestlerId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type' : 'application/json',
+          },
+        });
+
+        if(response.ok) {
+          updateWrestlerData();
+          toast.success(`Wrestler profile updated successfully`, {
+            position : toast.POSITION.TOP_CENTER,
+          })
+        }
+        
+      } catch(error) {
+        toast.error('Error updating data', {
+          position: toast.POSITION.TOP_CENTER,
+        })
+      }
+    }
+
     useEffect(() => {
         // Fetch data from the API
         const fetchData = async () => {
@@ -102,7 +125,9 @@ const Home = () => {
                 <WrestlerCard 
                   key={item.wrestler_id}
                   wrestler={item} 
-                  onEditButtonClick={() => displayEditForm(item)}/>
+                  onEditButtonClick={() => displayEditForm(item)}
+                  deleteWrestler={deleteWrestlerProfile}  
+                  />
               ))}
             </div>
           :
