@@ -33,6 +33,14 @@ const Home = () => {
     // Display deletion dialogue box (or not)
     const [showDialog, setShowDialog] = useState(false);
 
+    // Logic for profile deletion
+    const confirmOrCancelDeletion = (wrestler) => {
+      if (!showDialog) {
+        setShowDialog(true); 
+        setWrestlerDetails(wrestler);
+      } else { setShowDialog(false) };
+    }
+
     // Scroll to top on edit button click
     const displayEditForm = (wrestlerDetails) => {
       setWrestlerDetails(wrestlerDetails);
@@ -68,7 +76,8 @@ const Home = () => {
 
         if(response.ok) {
           updateWrestlerData();
-          toast.success(`Wrestler profile updated successfully`, {
+          setShowDialog(false);
+          toast.success(`Wrestler profile deleted successfully`, {
             position : toast.POSITION.TOP_CENTER,
           })
         }
@@ -130,7 +139,7 @@ const Home = () => {
                   key={item.wrestler_id}
                   wrestler={item} 
                   onEditButtonClick={() => displayEditForm(item)}
-                  deleteWrestler={deleteWrestlerProfile}  
+                  deleteWrestler={() => confirmOrCancelDeletion(item)}  
                   />
               ))}
             </div>
@@ -153,7 +162,11 @@ const Home = () => {
           {/* Deletion confirmation dialog box */}
           {
             showDialog &&
-            <DeletionDialogBox />
+            <DeletionDialogBox 
+              wrestler={wrestlerDetails}
+              cancelDeletion={confirmOrCancelDeletion}
+              confirmDeletion={deleteWrestlerProfile}
+            />
           }
       </div>
     </div>
