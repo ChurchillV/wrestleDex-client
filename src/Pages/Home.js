@@ -7,6 +7,7 @@ import { apiURL } from '../config/api_url';
 // Component imports
 import WrestlerCard from '../Components/WrestlerCard';
 import ProfileEditForm from '../Components/ProfileEditForm';
+import DeletionDialogBox from '../Components/DeletionDialogBox';
 
 const Home = () => {
     // API data
@@ -28,6 +29,9 @@ const Home = () => {
     const wrestlerSectionStyle = showEditForm 
     ? "grid md:grid-cols-2 lg:grid-cols-4 gap-4 opacity-25 transition ease-out duration-300"
     : "grid md:grid-cols-2 lg:grid-cols-4 gap-4 transition ease-out duration-300"
+
+    // Display deletion dialogue box (or not)
+    const [showDialog, setShowDialog] = useState(false);
 
     // Scroll to top on edit button click
     const displayEditForm = (wrestlerDetails) => {
@@ -135,12 +139,21 @@ const Home = () => {
             No wrestlers found
           </div>
           )}
-          {showEditForm &&
+
+          {/* Profile edit form */}
+          {
+            showEditForm &&
             <ProfileEditForm 
                 wrestler={wrestlerDetails}
                 exitForm={hideEditForm}
                 updateData={updateWrestlerData}
               />
+          }
+
+          {/* Deletion confirmation dialog box */}
+          {
+            showDialog &&
+            <DeletionDialogBox />
           }
       </div>
     </div>
