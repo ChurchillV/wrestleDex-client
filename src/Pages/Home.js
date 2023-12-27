@@ -33,7 +33,7 @@ const Home = () => {
     // Display deletion dialogue box (or not)
     const [showDialog, setShowDialog] = useState(false);
 
-    // Logic for profile deletion
+    // Logic for profile deletion dialog box
     const confirmOrCancelDeletion = (wrestler) => {
       if (!showDialog) {
         setShowDialog(true); 
