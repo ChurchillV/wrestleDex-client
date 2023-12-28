@@ -113,7 +113,7 @@ const Home = () => {
     }, [searchQuery]);
 
   return (
-    <div className='text-white flex mt-3 justify-center px-10 relative'>
+    <div className='text-white flex mt-12 justify-center px-10 relative'>
       <div className='flex flex-col'>
         <div className='flex flex-row justify-between'>
           <span className="text-5xl font-bold mb-4">All Stars</span>

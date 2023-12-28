@@ -2,7 +2,7 @@ import React from 'react'
 
 const DeletionDialogBox = ({ wrestler, cancelDeletion, confirmDeletion }) => {
   return (
-    <div class="fixed inset-0 flex items-center justify-center z-50 backdrop-blur confirm-dialog ">
+    <div class="fixed inset-0 flex items-center justify-center z-50 backdrop-blur confirm-dialog overflow-auto">
         <div class="relative px-4 min-h-screen md:flex md:items-center md:justify-center">
             <div class="bg-white rounded-lg md:max-w-md md:mx-auto p-4 z-50 mb-4 mx-4 md:relative shadow-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'">
                 <div class="md:flex items-center">

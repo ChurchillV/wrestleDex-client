@@ -14,7 +14,7 @@ function App() {
     <div className="App bg-black flex flex-row h-screen">
         <ToastContainer position='top-center' />
         <Sidebar />
-        <div className="flex-1 mt-10 overflow-auto">
+        <div className="overflow-auto">
           <Routes>
             <Route path='/' Component={ Home } />
             <Route path='/add' Component={ AddStar } />

@@ -97,9 +97,9 @@ const ProfileEditForm = ({ wrestler, exitForm, updateData }) => {
 
   return (
     <div 
-      className='border-2 border-solid w-1/2 border-gray-300 rounded-md p-5 bg-slate-100 text-gray-700 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
+      className='border-2 border-solid w-1/2 border-gray-300 rounded-md p-5 bg-slate-100 text-gray-700 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:mt-12 md:flex md:items-center md:justify-center'>
       <div 
-        className="flex flex-row justify-end mr-3"
+        className="flex flex-row justify-end md:mr-3 md:mt-10"
         onClick={handleCloseButtonClick}
       >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer hover:bg-gray-600 hover:text-blue-200 transition ease-out duration-300 rounded-lg">
@@ -107,8 +107,8 @@ const ProfileEditForm = ({ wrestler, exitForm, updateData }) => {
         </svg>
 
       </div>
-        <h2 className='text-center text-3xl'>Edit {wrestler.wrestler_name}'s Profile</h2>
-        <form className='mt-10 flex flex-col justify-items-center ml-10'>
+        <h2 className='text-center md:text-3xl'>Edit {wrestler.wrestler_name}'s Profile</h2>
+        <form className='mt-10 flex flex-col md:justify-items-center md:ml-10 text-sm'>
 
         {/* Name field */}
             <label className='mb-5'>
@@ -246,11 +246,11 @@ const ProfileEditForm = ({ wrestler, exitForm, updateData }) => {
                 </label>
 
 
-        <div className='text-center mt-5 mr-12'>
+        <div className='text-center mt-5 mr-12 flex flex-col justify-center'>
         {/* Submit button */}
             <button 
               type='submit'
-              className='p-3 rounded-md w-1/2 text-gray-200 bg-gray-800 text-center hover:bg-gray-600 hover:text-blue-200 transition ease-out duration-300'
+              className='p-3 rounded-md md:w-1/2 text-gray-200 bg-gray-800 text-center hover:bg-gray-600 hover:text-blue-200 transition ease-out duration-300'
               onClick={updateWrestlerProfile}>
                 Update Profile
             </button>
